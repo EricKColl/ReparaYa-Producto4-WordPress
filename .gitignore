@@ -16,28 +16,19 @@ Thumbs.db
 # WordPress core generado por Docker
 # ===============================
 wordpress/*
-
-# Permitimos únicamente wp-content como zona de trabajo
 !wordpress/wp-content/
 
-# Ignorar todo wp-content por defecto
 wordpress/wp-content/*
-
-# Permitimos carpetas de temas y plugins
 !wordpress/wp-content/themes/
 !wordpress/wp-content/plugins/
 
-# Ignorar todos los temas y plugins por defecto
+# Ignorar todos los temas excepto el tema propio del Producto 4
 wordpress/wp-content/themes/*
+!wordpress/wp-content/themes/reparaya-producto-4/
+!wordpress/wp-content/themes/reparaya-producto-4/**
+
+# Ignorar plugins de terceros instalados desde WordPress
 wordpress/wp-content/plugins/*
-
-# Permitiremos más adelante SOLO nuestro tema personalizado
-!wordpress/wp-content/themes/reparaya-p4/
-!wordpress/wp-content/themes/reparaya-p4/**
-
-# Permitiremos más adelante SOLO nuestro plugin/bloque personalizado
-!wordpress/wp-content/plugins/reparaya-servicios-block/
-!wordpress/wp-content/plugins/reparaya-servicios-block/**
 
 # Archivos sensibles o generados por WordPress
 wordpress/wp-config.php
