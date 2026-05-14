@@ -1,0 +1,74 @@
+# ===============================
+# Sistema operativo / editor
+# ===============================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===============================
+# Entornos y credenciales
+# ===============================
+.env
+*.env
+
+# ===============================
+# WordPress core generado por Docker
+# ===============================
+wordpress/*
+
+# Permitimos únicamente wp-content como zona de trabajo
+!wordpress/wp-content/
+
+# Ignorar todo wp-content por defecto
+wordpress/wp-content/*
+
+# Permitimos carpetas de temas y plugins
+!wordpress/wp-content/themes/
+!wordpress/wp-content/plugins/
+
+# Ignorar todos los temas y plugins por defecto
+wordpress/wp-content/themes/*
+wordpress/wp-content/plugins/*
+
+# Permitiremos más adelante SOLO nuestro tema personalizado
+!wordpress/wp-content/themes/reparaya-p4/
+!wordpress/wp-content/themes/reparaya-p4/**
+
+# Permitiremos más adelante SOLO nuestro plugin/bloque personalizado
+!wordpress/wp-content/plugins/reparaya-servicios-block/
+!wordpress/wp-content/plugins/reparaya-servicios-block/**
+
+# Archivos sensibles o generados por WordPress
+wordpress/wp-config.php
+wordpress/wp-content/uploads/
+wordpress/wp-content/cache/
+wordpress/wp-content/upgrade/
+wordpress/wp-content/backups/
+wordpress/wp-content/ai1wm-backups/
+wordpress/wp-content/debug.log
+
+# ===============================
+# Dependencias / temporales
+# ===============================
+node_modules/
+vendor/
+*.log
+*.tmp
+
+# ===============================
+# Laravel Producto 3 como referencia local
+# ===============================
+laravel/vendor/
+laravel/node_modules/
+laravel/storage/logs/*
+laravel/storage/framework/cache/data/*
+laravel/storage/framework/sessions/*
+laravel/storage/framework/views/*
+
+# ===============================
+# Entrega final
+# ===============================
+*.zip
+*.rar
+*.sql.gz

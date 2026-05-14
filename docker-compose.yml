@@ -1,0 +1,41 @@
+services:
+  p4-wp-db:
+    image: mysql:8.0
+    container_name: p4-wp-db
+    environment:
+      MYSQL_DATABASE: wp_producto4
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+      MYSQL_ROOT_PASSWORD: wprootpass
+    volumes:
+      - p4_wp_db_data:/var/lib/mysql
+
+  p4-wordpress:
+    image: wordpress:latest
+    container_name: p4-wordpress
+    ports:
+      - "8084:80"
+    environment:
+      WORDPRESS_DB_HOST: p4-wp-db:3306
+      WORDPRESS_DB_NAME: wp_producto4
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+    volumes:
+      - ./wordpress:/var/www/html
+    depends_on:
+      - p4-wp-db
+
+  p4-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: p4-phpmyadmin
+    ports:
+      - "8085:80"
+    environment:
+      PMA_HOST: p4-wp-db
+      PMA_USER: root
+      PMA_PASSWORD: wprootpass
+    depends_on:
+      - p4-wp-db
+
+volumes:
+  p4_wp_db_data:

@@ -1,0 +1,85 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: daw-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: daw-db
+    environment:
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: daw-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: rootpass
+    depends_on:
+      - db
+
+  laravel:
+    image: composer:2
+    container_name: daw-laravel
+    working_dir: /app
+    volumes:
+      - ./laravel:/app
+    command: ["sh", "-c", "composer --version && tail -f /dev/null"]
+
+  laravel-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.laravel-web
+    container_name: daw-laravel-web
+    working_dir: /app
+    volumes:
+      - ./laravel:/app
+    ports:
+      - "8000:8000"
+    command: ["sh", "-c", "php -S 0.0.0.0:8000 -t public"]
+    depends_on:
+      - db
+
+  wp-db:
+    image: mysql:8.0
+    container_name: daw-wp-db
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+      MYSQL_ROOT_PASSWORD: wprootpass
+    volumes:
+      - wp_db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: daw-wordpress
+    ports:
+      - "8082:80"
+    environment:
+      WORDPRESS_DB_HOST: wp-db:3306
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+    depends_on:
+      - wp-db
+
+volumes:
+  db_data:
+  wp_db_data:
