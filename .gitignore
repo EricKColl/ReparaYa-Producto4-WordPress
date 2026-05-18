@@ -63,3 +63,11 @@ laravel/storage/framework/views/*
 *.zip
 *.rar
 *.sql.gz
+
+# ===============================
+# Backups locales generados durante desarrollo
+# ===============================
+*.bak
+*.bak-*
+*backup*
+*debug*
