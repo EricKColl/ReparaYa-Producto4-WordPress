@@ -1,30 +1,470 @@
-<!-- wp:group {"layout":{"inherit":"true"}} -->
-<div class="wp-block-group">
-	<!-- wp:group {"align":"full","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"padding":{"bottom":"30px","top":"30px"}}}} -->
-	<div class="wp-block-group alignfull" style="padding-bottom:30px;padding-top:30px">
-	
-		<!-- wp:group {"layout":{"type":"flex"}} -->
-		<div class="wp-block-group">
-			<!-- wp:site-logo {"width":64} /-->
-	
-			<!-- wp:group -->
-			<div class="wp-block-group">
-				<!-- wp:site-title /-->
-				<!-- wp:site-tagline /-->
-			</div>
-			<!-- /wp:group -->
-		</div>
-		<!-- /wp:group -->
-	
-		<!-- wp:navigation {"layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"right","orientation":"horizontal"},"style":{"spacing":{"margin":{"top":"0"}}}} /-->
-	
-	</div>
-	<!-- /wp:group -->
+<!-- wp:html -->
+<style>
+  .ry-fix-header-shell{
+    position:fixed !important;
+    top:18px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    z-index:99999 !important;
+    width:min(1520px, calc(100% - 56px)) !important;
+    margin:0 !important;
+    pointer-events:auto !important;
+  }
 
-</div>
-<!-- /wp:group -->
+  .admin-bar .ry-fix-header-shell{
+    top:52px !important;
+  }
 
-<!-- wp:spacer {"height":50} -->
-<div style="height:50px" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
- 
+  .ry-fix-header{
+    height:96px !important;
+    display:grid !important;
+    grid-template-columns:340px 1fr 230px !important;
+    align-items:center !important;
+    gap:28px !important;
+    padding:12px 22px !important;
+    border-radius:30px !important;
+    border:1px solid rgba(212,175,55,.24) !important;
+    background:
+      radial-gradient(circle at 12% 50%, rgba(212,175,55,.12), transparent 28%),
+      radial-gradient(circle at 90% 50%, rgba(212,175,55,.10), transparent 28%),
+      linear-gradient(180deg, rgba(0,0,0,.96), rgba(6,5,3,.94)) !important;
+    box-shadow:
+      0 30px 95px rgba(0,0,0,.68),
+      0 0 42px rgba(212,175,55,.10),
+      inset 0 1px 0 rgba(255,255,255,.06) !important;
+    backdrop-filter:blur(18px) !important;
+    overflow:hidden !important;
+  }
+
+  .ry-fix-brand{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    width:340px !important;
+    height:72px !important;
+    overflow:hidden !important;
+    text-decoration:none !important;
+  }
+
+  .ry-fix-logo-card{
+    width:330px !important;
+    height:72px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    overflow:hidden !important;
+    border-radius:26px !important;
+    background:#000 !important;
+    border:1px solid rgba(212,175,55,.18) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.035) !important;
+  }
+
+  .ry-fix-logo-card img{
+    display:block !important;
+    width:300px !important;
+    max-width:300px !important;
+    height:auto !important;
+    max-height:62px !important;
+    object-fit:contain !important;
+    border-radius:20px !important;
+    filter:drop-shadow(0 0 14px rgba(212,175,55,.30)) !important;
+  }
+
+  .ry-fix-nav{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:8px !important;
+    padding:8px !important;
+    border-radius:999px !important;
+    border:1px solid rgba(255,255,255,.08) !important;
+    background:rgba(255,255,255,.035) !important;
+  }
+
+  .ry-fix-nav a{
+    position:relative !important;
+    min-height:44px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:0 18px !important;
+    border-radius:999px !important;
+    color:rgba(255,255,255,.82) !important;
+    text-decoration:none !important;
+    text-transform:uppercase !important;
+    letter-spacing:.12em !important;
+    font-size:.78rem !important;
+    font-weight:900 !important;
+    transition:.22s ease !important;
+  }
+
+  .ry-fix-nav a:hover,
+  .ry-fix-nav a.is-active{
+    color:#ffe98a !important;
+    background:rgba(212,175,55,.12) !important;
+    transform:translateY(-1px) !important;
+  }
+
+  .ry-fix-cta{
+    justify-self:end !important;
+    min-height:56px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:12px !important;
+    padding:0 26px !important;
+    border:0 !important;
+    border-radius:16px !important;
+    color:#120e05 !important;
+    text-decoration:none !important;
+    font-family:inherit !important;
+    font-size:inherit !important;
+    font-weight:950 !important;
+    cursor:pointer !important;
+    background:linear-gradient(135deg, #fff2a6, #d4af37 48%, #9a6f20) !important;
+    box-shadow:
+      0 22px 58px rgba(212,175,55,.25),
+      inset 0 1px 0 rgba(255,255,255,.70) !important;
+    white-space:nowrap !important;
+    transition:.22s ease !important;
+  }
+
+  .ry-fix-cta:hover{
+    transform:translateY(-2px) !important;
+  }
+
+  @media (max-width:1100px){
+    .ry-fix-header-shell{
+      position:sticky !important;
+      left:auto !important;
+      transform:none !important;
+      top:12px !important;
+      width:min(100% - 28px, 1520px) !important;
+      margin:12px auto 0 !important;
+    }
+
+    .ry-fix-header{
+      height:auto !important;
+      grid-template-columns:1fr !important;
+      justify-items:center !important;
+      padding:18px !important;
+    }
+
+    .ry-fix-brand,
+    .ry-fix-logo-card{
+      width:min(330px, 84vw) !important;
+    }
+
+    .ry-fix-nav{
+      flex-wrap:wrap !important;
+    }
+
+    .ry-fix-cta{
+      justify-self:center !important;
+    }
+  }
+
+  /* ============================================================
+     RY LOGO FINAL STABLE NO SHAKE
+     Solución real:
+     - centra la navbar sin transform para evitar microtemblores
+     - mantiene la misma posición visual
+     - deja el hueso del logo negro
+     - fija dimensiones exactas del logo
+  ============================================================ */
+
+  .ry-fix-header-shell{
+    left:0 !important;
+    right:0 !important;
+    transform:none !important;
+    width:calc(100vw - 56px) !important;
+    max-width:1520px !important;
+    min-width:0 !important;
+    margin:0 auto !important;
+    top:18px !important;
+    box-sizing:border-box !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .admin-bar .ry-fix-header-shell{
+    top:52px !important;
+  }
+
+  .ry-fix-header{
+    grid-template-columns:340px minmax(0, 1fr) 230px !important;
+    transform:none !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .ry-fix-brand{
+    width:340px !important;
+    min-width:340px !important;
+    max-width:340px !important;
+    height:72px !important;
+    min-height:72px !important;
+    max-height:72px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:0 !important;
+    margin:0 !important;
+    background:#000000 !important;
+    border-radius:26px !important;
+    overflow:hidden !important;
+    line-height:0 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .ry-fix-logo-card{
+    width:330px !important;
+    min-width:330px !important;
+    max-width:330px !important;
+    height:72px !important;
+    min-height:72px !important;
+    max-height:72px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:0 !important;
+    margin:0 !important;
+    background:#000000 !important;
+    border:0 !important;
+    border-radius:22px !important;
+    box-shadow:none !important;
+    overflow:hidden !important;
+    line-height:0 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .ry-fix-logo-card img{
+    display:block !important;
+    width:300px !important;
+    min-width:300px !important;
+    max-width:300px !important;
+    height:62px !important;
+    min-height:62px !important;
+    max-height:62px !important;
+    aspect-ratio:2508 / 627 !important;
+    object-fit:contain !important;
+    object-position:center center !important;
+    border-radius:0 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .ry-fix-brand:hover,
+  .ry-fix-brand:focus,
+  .ry-fix-brand:active,
+  .ry-fix-logo-card:hover,
+  .ry-fix-logo-card:focus,
+  .ry-fix-logo-card:active,
+  .ry-fix-logo-card:hover img,
+  .ry-fix-logo-card:focus img,
+  .ry-fix-logo-card:active img{
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+  }
+
+  @media (max-width:1100px){
+    .ry-fix-header-shell{
+      left:auto !important;
+      right:auto !important;
+      transform:none !important;
+      width:min(100% - 28px, 1520px) !important;
+      max-width:1520px !important;
+      margin:12px auto 0 !important;
+    }
+
+    .ry-fix-brand,
+    .ry-fix-logo-card{
+      width:min(330px, 84vw) !important;
+      min-width:0 !important;
+      max-width:min(330px, 84vw) !important;
+    }
+
+    .ry-fix-logo-card img{
+      width:min(300px, 76vw) !important;
+      min-width:0 !important;
+      max-width:min(300px, 76vw) !important;
+    }
+  }
+
+  /* ============================================================
+     RY LOGO NO FLICKER IMG ONLY FINAL
+     Corrige deformación:
+     - NO usa el logo como background
+     - mantiene hueso negro
+     - mantiene imagen estable y precargada
+  ============================================================ */
+
+  .ry-fix-brand{
+    background:#000000 !important;
+    border-radius:26px !important;
+    overflow:hidden !important;
+    line-height:0 !important;
+  }
+
+  .ry-fix-logo-card{
+    background:#000000 !important;
+    background-image:none !important;
+    background-repeat:no-repeat !important;
+    background-position:center center !important;
+    background-size:auto !important;
+    width:330px !important;
+    min-width:330px !important;
+    max-width:330px !important;
+    height:72px !important;
+    min-height:72px !important;
+    max-height:72px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:0 !important;
+    border-radius:22px !important;
+    box-shadow:none !important;
+    overflow:hidden !important;
+    line-height:0 !important;
+  }
+
+  .ry-fix-logo-card img{
+    display:block !important;
+    width:300px !important;
+    min-width:300px !important;
+    max-width:300px !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:62px !important;
+    aspect-ratio:auto !important;
+    object-fit:contain !important;
+    object-position:center center !important;
+    border-radius:0 !important;
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+    will-change:auto !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  .ry-fix-brand:hover,
+  .ry-fix-brand:focus,
+  .ry-fix-brand:active,
+  .ry-fix-logo-card:hover,
+  .ry-fix-logo-card:focus,
+  .ry-fix-logo-card:active,
+  .ry-fix-logo-card:hover img,
+  .ry-fix-logo-card:focus img,
+  .ry-fix-logo-card:active img{
+    transform:none !important;
+    transition:none !important;
+    animation:none !important;
+    filter:none !important;
+  }
+
+  @media (max-width:1100px){
+    .ry-fix-logo-card{
+      width:min(330px, 84vw) !important;
+      min-width:0 !important;
+      max-width:min(330px, 84vw) !important;
+    }
+
+    .ry-fix-logo-card img{
+      width:min(300px, 76vw) !important;
+      min-width:0 !important;
+      max-width:min(300px, 76vw) !important;
+      height:auto !important;
+      max-height:62px !important;
+    }
+  }
+
+</style>
+
+<header class="ry-fix-header-shell">
+  <div class="ry-fix-header">
+    <a class="ry-fix-brand" href="/" aria-label="Ir al inicio de ReparaYa">
+      <span class="ry-fix-logo-card">
+        <img src="/wp-content/themes/reparaya-producto-4/assets/img/reparaya-logo.png" alt="ReparaYa" width="2508" height="627" loading="eager" decoding="sync" fetchpriority="high">
+      </span>
+    </a>
+
+    <nav class="ry-fix-nav" aria-label="Navegación principal">
+      <a href="/" data-nav="inicio">Inicio</a>
+      <a href="/nuestros-servicios/" data-nav="servicios">Servicios</a>
+      <a href="/nuestra-flota/" data-nav="flota">Flota técnica</a>
+      <a href="/noticias/" data-nav="noticias">Noticias</a>
+      <a href="#contacto" data-nav="contacto">Contacto</a>
+    </nav>
+
+    <button class="ry-fix-cta" type="button" data-ry11-open-form>
+      Solicitar reparación
+      <span>↗</span>
+    </button>
+  </div>
+</header>
+
+<script>
+(function(){
+  function setReparayaActiveNav(){
+    const path = window.location.pathname.replace(/\/+$/, "/");
+    const hash = window.location.hash;
+    const links = document.querySelectorAll(".ry-fix-nav a");
+
+    links.forEach(function(link){
+      link.classList.remove("is-active");
+    });
+
+    let key = "inicio";
+
+    if(hash === "#contacto"){
+      key = "contacto";
+    }else if(path.indexOf("/nuestros-servicios/") === 0){
+      key = "servicios";
+    }else if(path.indexOf("/nuestra-flota/") === 0){
+      key = "flota";
+    }else if(path.indexOf("/noticias/") === 0){
+      key = "noticias";
+    }
+
+    const active = document.querySelector('.ry-fix-nav a[data-nav="' + key + '"]');
+    if(active){
+      active.classList.add("is-active");
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", setReparayaActiveNav);
+  }else{
+    setReparayaActiveNav();
+  }
+
+  window.addEventListener("load", setReparayaActiveNav);
+  window.addEventListener("hashchange", setReparayaActiveNav);
+})();
+</script>
+<!-- /wp:html -->

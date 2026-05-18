@@ -1,4 +1,4 @@
-== ReparaYa Producto 4 ==
+== ReparaYa ==
 
 Contributors: BackLord
 Requires at least: 6.9
@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Tema de bloques personalizado para la web institucional del Producto 4 de ReparaYa.
+Tema de bloques personalizado para la web institucional de ReparaYa.
 
 
 == Changelog ==
@@ -21,8 +21,8 @@ Tema de bloques personalizado para la web institucional del Producto 4 de Repara
 
 == Copyright ==
 
-ReparaYa Producto 4 WordPress Theme, (C) 2026 BackLord
-ReparaYa Producto 4 is distributed under the terms of the GNU GPL.
+ReparaYa WordPress Theme, (C) 2026 BackLord
+ReparaYa is distributed under the terms of the GNU GPL.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
