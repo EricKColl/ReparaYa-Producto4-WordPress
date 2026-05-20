@@ -61,3 +61,59 @@ function reparaya_preload_main_logo() {
 }
 add_action( 'wp_head', 'reparaya_preload_main_logo', 1 );
 
+/* ============================================================
+   REPARAYA · NORMALIZACIÓN DE RUTAS LOCAL/UOC
+   Permite que las rutas absolutas del tema funcionen correctamente
+   tanto en local como en el servidor UOC bajo /~uocx3/.
+============================================================ */
+
+if (!function_exists('reparaya_normalizar_rutas_frontend')) {
+    function reparaya_normalizar_rutas_frontend($html) {
+        if (!is_string($html) || $html === '') {
+            return $html;
+        }
+
+        $theme_path = '/wp-content/themes/reparaya-producto-4/';
+        $theme_uri  = trailingslashit(get_template_directory_uri());
+
+        // Corrige rutas absolutas del tema dentro de HTML, CSS inline y atributos.
+        $html = str_replace($theme_path, $theme_uri, $html);
+
+        // Corrige enlaces internos escritos como rutas raíz:
+        // href="/nuestros-servicios/" -> href="https://dominio/~uocx3/nuestros-servicios/"
+        $html = preg_replace_callback(
+            '/\b(href|src|action)=([\'"])\/(?!\/|#)([^\'"]*)\2/i',
+            function ($matches) {
+                $attribute = $matches[1];
+                $quote     = $matches[2];
+                $path      = $matches[3];
+
+                if (preg_match('/^(https?:|mailto:|tel:|#)/i', $path)) {
+                    return $matches[0];
+                }
+
+                return $attribute . '=' . $quote . esc_url(home_url('/' . ltrim($path, '/'))) . $quote;
+            },
+            $html
+        );
+
+        return $html;
+    }
+}
+
+if (!function_exists('reparaya_iniciar_buffer_rutas_frontend')) {
+    function reparaya_iniciar_buffer_rutas_frontend() {
+        if (is_admin() || wp_doing_ajax() || wp_is_json_request()) {
+            return;
+        }
+
+        ob_start('reparaya_normalizar_rutas_frontend');
+    }
+}
+
+add_action('template_redirect', 'reparaya_iniciar_buffer_rutas_frontend', 0);
+
+/* ============================================================
+   FIN REPARAYA · NORMALIZACIÓN DE RUTAS LOCAL/UOC
+============================================================ */
+
