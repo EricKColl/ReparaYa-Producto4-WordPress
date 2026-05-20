@@ -15,6 +15,8 @@ services:
     container_name: p4-wordpress
     ports:
       - "8084:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       WORDPRESS_DB_HOST: p4-wp-db:3306
       WORDPRESS_DB_NAME: wp_producto4
