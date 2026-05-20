@@ -1575,6 +1575,171 @@ html{
   justify-content:center !important;
 }
 
+
+/* ============================================================
+   SERVICIOS GENESIS POST CONTENT SLOT FINAL
+   Zona dinámica para renderizar el bloque Genesis Custom Blocks
+   insertado desde el editor de la página Nuestros servicios.
+============================================================ */
+
+.svc-genesis-section{
+  position:relative;
+  overflow:hidden;
+  padding:86px 0 96px;
+  color:var(--svc-white);
+  background:
+    linear-gradient(rgba(212,175,55,.030) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,.026) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, rgba(212,175,55,.16), transparent 30%),
+    linear-gradient(180deg, #040301 0%, #090603 48%, #020201 100%);
+  background-size:58px 58px, 58px 58px, auto, auto;
+  border-top:1px solid rgba(212,175,55,.16);
+}
+
+.svc-genesis-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background:repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,.014) 0,
+    rgba(255,255,255,.014) 1px,
+    transparent 2px,
+    transparent 5px
+  );
+}
+
+.svc-genesis-head{
+  margin-bottom:34px !important;
+}
+
+.svc-genesis-shell{
+  position:relative;
+  z-index:2;
+  width:min(1180px, 100%);
+  margin:0 auto;
+  padding:30px;
+  border-radius:38px;
+  border:1px solid rgba(212,175,55,.26);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212,175,55,.14), transparent 34%),
+    linear-gradient(180deg, rgba(15,12,7,.97), rgba(5,4,3,.99));
+  box-shadow:
+    0 38px 120px rgba(0,0,0,.42),
+    0 0 70px rgba(212,175,55,.08),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Normalización del contenido que venga desde el editor/post-content */
+.svc-genesis-shell .wp-block-post-content,
+.svc-genesis-shell .entry-content,
+.svc-genesis-shell > *{
+  max-width:100% !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+.svc-genesis-shell p{
+  color:rgba(255,248,220,.72);
+  line-height:1.7;
+}
+
+/* Estilos previstos para la salida del bloque Genesis */
+.ry-json-services{
+  display:grid;
+  gap:24px;
+  text-align:center;
+}
+
+.ry-json-services__summary{
+  padding:28px;
+  border-radius:28px;
+  border:1px solid rgba(212,175,55,.22);
+  background:rgba(0,0,0,.24);
+}
+
+.ry-json-services__summary span{
+  display:block;
+  color:var(--svc-gold2);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:.72rem;
+  font-weight:950;
+  margin-bottom:10px;
+}
+
+.ry-json-services__summary strong{
+  display:block;
+  color:var(--svc-white);
+  font-size:clamp(2.4rem, 5vw, 4.6rem);
+  line-height:1;
+  font-weight:950;
+}
+
+.ry-json-services__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+}
+
+.ry-json-zone{
+  min-height:190px;
+  padding:28px 22px;
+  border-radius:28px;
+  border:1px solid rgba(212,175,55,.22);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212,175,55,.12), transparent 32%),
+    rgba(255,255,255,.035);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.ry-json-zone__name{
+  color:var(--svc-gold2);
+  text-transform:uppercase;
+  letter-spacing:.20em;
+  font-size:.72rem;
+  font-weight:950;
+  margin-bottom:14px;
+}
+
+.ry-json-zone__total{
+  color:var(--svc-white);
+  font-size:2.7rem;
+  line-height:1;
+  font-weight:950;
+  margin-bottom:10px;
+}
+
+.ry-json-zone__percent{
+  color:rgba(255,248,220,.70);
+  font-weight:800;
+}
+
+.ry-json-services__error{
+  padding:24px;
+  border-radius:24px;
+  border:1px solid rgba(255,120,80,.28);
+  background:rgba(80,20,10,.20);
+  color:#ffd6c8;
+  text-align:center;
+}
+
+@media (max-width:820px){
+  .svc-genesis-section{
+    padding:64px 0 74px;
+  }
+
+  .svc-genesis-shell{
+    padding:20px;
+    border-radius:28px;
+  }
+}
+
 </style>
 
 <main class="svc-page">
@@ -2142,5 +2307,31 @@ html{
 })();
 </script>
 <!-- /wp:html -->
+
+
+<!-- SERVICIOS_GENESIS_SLOT_START -->
+<!-- wp:group {"tagName":"section","className":"svc-genesis-section","layout":{"type":"constrained"}} -->
+<!-- wp:html -->
+<div class="svc-wrap">
+  <div class="svc-head svc-genesis-head">
+    <span>Integración dinámica · Producto 3</span>
+    <h2>Servicios por zona desde el Web Service.</h2>
+    <p>
+      Esta zona está preparada para mostrar el bloque personalizado de Genesis Custom Blocks,
+      conectado al JSON generado en el Producto 3 y renderizado dentro de WordPress.
+    </p>
+  </div>
+
+  <div class="svc-genesis-shell">
+<!-- /wp:html -->
+
+<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+<!-- wp:html -->
+  </div>
+</div>
+<!-- /wp:html -->
+<!-- /wp:group -->
+<!-- SERVICIOS_GENESIS_SLOT_END -->
 
 <!-- wp:template-part {"slug":"footer","theme":"reparaya-producto-4","area":"footer"} /-->
