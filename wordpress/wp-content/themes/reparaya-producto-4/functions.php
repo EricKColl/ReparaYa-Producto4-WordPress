@@ -76,8 +76,10 @@ if (!function_exists('reparaya_normalizar_rutas_frontend')) {
         $theme_path = '/wp-content/themes/reparaya-producto-4/';
         $theme_uri  = trailingslashit(get_template_directory_uri());
 
-        // Corrige rutas absolutas del tema dentro de HTML, CSS inline y atributos.
-        $html = str_replace($theme_path, $theme_uri, $html);
+        // Corrige rutas del tema escritas desde la raíz dentro de HTML, CSS inline y atributos.
+        // Solo cuando no van ya precedidas de un dominio: las URLs absolutas que genera WordPress
+        // (hojas de estilo y scripts encolados, precarga del logo) se dejan intactas.
+        $html = preg_replace('#(?<![\w.:~-])' . preg_quote($theme_path, '#') . '#', $theme_uri, $html);
 
         // Corrige enlaces internos escritos como rutas raíz:
         // href="/nuestros-servicios/" -> href="https://dominio/~uocx3/nuestros-servicios/"
